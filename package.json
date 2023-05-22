@@ -16,15 +16,20 @@
   "dependencies": {
     "@fastify/autoload": "^5.0.0",
     "@fastify/sensible": "^5.0.0",
+    "@pinecone-database/pinecone": "^0.1.6",
     "axios": "^1.4.0",
+    "bottleneck": "^2.19.5",
     "cheerio": "^1.0.0-rc.12",
     "crawler": "^1.4.0",
     "dotenv": "^16.0.3",
     "fastify": "^4.0.0",
     "fastify-cli": "^5.7.1",
     "fastify-plugin": "^4.0.0",
+    "langchain": "^0.0.78",
+    "openai": "^3.2.1",
     "robots-parser": "^3.0.1",
-    "turndown": "^7.1.2"
+    "turndown": "^7.1.2",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@types/crawler": "^1.2.2",

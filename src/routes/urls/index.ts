@@ -18,10 +18,24 @@ const root: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
 			const robotsTxt = robotsResponse.data;
 			const robots = RobotsParser(`${url}/robots.txt`, robotsTxt);
 
+			// Start with sitemaps from robots.txt
+			let sitemaps = robots.getSitemaps();
+
+			// If no sitemaps found, try common sitemap location
+			if (sitemaps.length === 0) {
+				try {
+					await axios.head(`${url}/sitemap.xml`);
+					// If request doesn't fail, add to sitemaps
+					sitemaps.push(`${url}/sitemap.xml`);
+				} catch (error) {
+					console.log("No sitemap found at common location");
+				}
+			}
+
 			// Fetch all urls from all sitemaps
 			const urls: string[] = [];
 			await Promise.all(
-				robots.getSitemaps().map(async (sitemapIndex) => {
+				sitemaps.map(async (sitemapIndex) => {
 					const response = await axios.get(sitemapIndex);
 
 					const $ = cheerio.load(response.data, {
